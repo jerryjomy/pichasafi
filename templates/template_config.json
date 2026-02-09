@@ -1,0 +1,18 @@
+{
+    "product_showcase": {
+        "canvas_size": [1080, 1080],
+        "product_zone": {"x": 140, "y": 200, "w": 800, "h": 600},
+        "logo_zone": {"x": 900, "y": 40, "w": 140, "h": 140},
+        "business_name_zone": {"x": 40, "y": 60, "anchor": "left"},
+        "price_zone": {"x": 540, "y": 900, "anchor": "center"},
+        "contact_zone": {"x": 540, "y": 1020, "anchor": "center"},
+        "tagline_zone": {"x": 540, "y": 95, "anchor": "center"},
+        "watermark_zone": {"x": 540, "y": 1055, "anchor": "center"},
+        "fonts": {
+            "business_name": {"size": 28, "weight": "bold"},
+            "price": {"size": 48, "weight": "bold"},
+            "contact": {"size": 18, "weight": "regular"},
+            "tagline": {"size": 16, "weight": "regular"}
+        }
+    }
+}
