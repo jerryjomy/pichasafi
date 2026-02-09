@@ -6,10 +6,13 @@ from app.config import Config
 
 logger = logging.getLogger(__name__)
 
-HEADERS = {
-    "Authorization": f"Bearer {Config.WHATSAPP_ACCESS_TOKEN}",
-    "Content-Type": "application/json",
-}
+
+def _get_headers() -> dict:
+    """Build auth headers lazily so token is read at call time, not import time."""
+    return {
+        "Authorization": f"Bearer {Config.WHATSAPP_ACCESS_TOKEN}",
+        "Content-Type": "application/json",
+    }
 
 
 def _send(payload: dict) -> dict:
@@ -17,7 +20,7 @@ def _send(payload: dict) -> dict:
     try:
         response = requests.post(
             Config.WHATSAPP_API_URL,
-            headers=HEADERS,
+            headers=_get_headers(),
             json=payload,
             timeout=30,
         )

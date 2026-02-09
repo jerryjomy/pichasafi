@@ -9,9 +9,7 @@ class Config:
     WHATSAPP_VERIFY_TOKEN = os.environ.get("WHATSAPP_VERIFY_TOKEN")
     WHATSAPP_ACCESS_TOKEN = os.environ.get("WHATSAPP_ACCESS_TOKEN")
     WHATSAPP_PHONE_NUMBER_ID = os.environ.get("WHATSAPP_PHONE_NUMBER_ID")
-    WHATSAPP_API_URL = (
-        f"https://graph.facebook.com/v21.0/{WHATSAPP_PHONE_NUMBER_ID}/messages"
-    )
+    WHATSAPP_API_URL = ""  # Set in validate()
     WHATSAPP_MEDIA_URL = "https://graph.facebook.com/v21.0"
 
     # Supabase
@@ -43,3 +41,7 @@ class Config:
             raise EnvironmentError(
                 f"Missing required environment variables: {', '.join(missing)}"
             )
+        # Compute derived values after env vars are confirmed
+        cls.WHATSAPP_API_URL = (
+            f"https://graph.facebook.com/v21.0/{cls.WHATSAPP_PHONE_NUMBER_ID}/messages"
+        )
