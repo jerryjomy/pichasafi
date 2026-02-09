@@ -12,6 +12,12 @@ logger = logging.getLogger(__name__)
 webhook_bp = Blueprint("webhook", __name__)
 
 
+@webhook_bp.route("/health", methods=["GET"])
+def health():
+    """Simple health endpoint for Railway healthcheck."""
+    return "ok", 200
+
+
 @webhook_bp.route("/webhook", methods=["GET"])
 def verify():
     """WhatsApp webhook verification (called once during Meta setup)."""
