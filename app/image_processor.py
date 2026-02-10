@@ -95,14 +95,17 @@ def place_product_on_background(
 
 def process_product_photo(image_bytes: bytes, bg_color: str = "#1A1A2E") -> bytes:
     """
-    Full Phase 1 pipeline:
-    1. Remove background
-    2. Enhance product
-    3. Create gradient background from brand color
-    4. Place product on background
-    5. Export as 1080x1080 JPEG
+    Phase 1 pipeline (lightweight — no background removal to save memory):
+    1. Open and enhance product image
+    2. Create gradient background from brand color
+    3. Place product on background
+    4. Export as 1080x1080 JPEG
+
+    Background removal (rembg) disabled due to memory constraints on
+    free-tier hosting. Can be re-enabled with more RAM (1GB+).
     """
-    product = remove_background(image_bytes)
+    product = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
+    logger.info(f"Opened image. Size: {product.size}")
     product = enhance_image(product)
 
     background = create_gradient_background(
