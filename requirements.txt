@@ -2,7 +2,7 @@ flask==3.1.0
 gunicorn==23.0.0
 requests==2.32.3
 python-dotenv==1.0.1
-supabase>=2.11.0
+supabase==2.28.0
 Pillow==11.1.0
 rembg==2.0.62
 onnxruntime==1.20.0

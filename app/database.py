@@ -13,7 +13,10 @@ def get_client() -> Client:
     """Lazy singleton Supabase client."""
     global _client
     if _client is None:
-        _client = create_client(Config.SUPABASE_URL, Config.SUPABASE_KEY)
+        url = Config.SUPABASE_URL
+        key = Config.SUPABASE_KEY
+        logger.info(f"Connecting to Supabase: url={url}, key={key[:20]}...{key[-10:]} (len={len(key)})")
+        _client = create_client(url, key)
     return _client
 
 
