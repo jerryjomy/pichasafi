@@ -14,8 +14,8 @@ class Config:
 
     # Supabase
     SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "").strip()
-    SUPABASE_KEY = (os.environ.get("SUPABASE_KEY") or "").strip()
-    SUPABASE_SERVICE_KEY = (os.environ.get("SUPABASE_SERVICE_KEY") or "").strip()
+    SUPABASE_KEY = (os.environ.get("SUPABASE_KEY") or "").strip().lstrip("=")
+    SUPABASE_SERVICE_KEY = (os.environ.get("SUPABASE_SERVICE_KEY") or "").strip().lstrip("=")
 
     # App
     APP_URL = (os.environ.get("APP_URL") or "http://localhost:5000").strip()
