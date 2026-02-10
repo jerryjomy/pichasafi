@@ -6,20 +6,20 @@ load_dotenv()
 
 class Config:
     # WhatsApp Cloud API
-    WHATSAPP_VERIFY_TOKEN = os.environ.get("WHATSAPP_VERIFY_TOKEN")
-    WHATSAPP_ACCESS_TOKEN = os.environ.get("WHATSAPP_ACCESS_TOKEN")
-    WHATSAPP_PHONE_NUMBER_ID = os.environ.get("WHATSAPP_PHONE_NUMBER_ID")
+    WHATSAPP_VERIFY_TOKEN = (os.environ.get("WHATSAPP_VERIFY_TOKEN") or "").strip()
+    WHATSAPP_ACCESS_TOKEN = (os.environ.get("WHATSAPP_ACCESS_TOKEN") or "").strip()
+    WHATSAPP_PHONE_NUMBER_ID = (os.environ.get("WHATSAPP_PHONE_NUMBER_ID") or "").strip()
     WHATSAPP_API_URL = ""  # Set in validate()
     WHATSAPP_MEDIA_URL = "https://graph.facebook.com/v21.0"
 
     # Supabase
-    SUPABASE_URL = os.environ.get("SUPABASE_URL")
-    SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
-    SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY")
+    SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "").strip()
+    SUPABASE_KEY = (os.environ.get("SUPABASE_KEY") or "").strip()
+    SUPABASE_SERVICE_KEY = (os.environ.get("SUPABASE_SERVICE_KEY") or "").strip()
 
     # App
-    APP_URL = os.environ.get("APP_URL", "http://localhost:5000")
-    FREE_IMAGE_LIMIT = int(os.environ.get("FREE_IMAGE_LIMIT", "3"))
+    APP_URL = (os.environ.get("APP_URL") or "http://localhost:5000").strip()
+    FREE_IMAGE_LIMIT = int((os.environ.get("FREE_IMAGE_LIMIT") or "3").strip())
 
     # Paths
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
