@@ -7,10 +7,11 @@ from app.config import Config
 logger = logging.getLogger(__name__)
 
 _client: Client = None
+_service_client: Client = None
 
 
 def get_client() -> Client:
-    """Lazy singleton Supabase client."""
+    """Lazy singleton Supabase client (anon key — respects RLS)."""
     global _client
     if _client is None:
         url = Config.SUPABASE_URL
@@ -18,6 +19,17 @@ def get_client() -> Client:
         logger.info(f"Connecting to Supabase: url={url}, key={key[:20]}...{key[-10:]} (len={len(key)})")
         _client = create_client(url, key)
     return _client
+
+
+def get_service_client() -> Client:
+    """Lazy singleton Supabase client (service role key — bypasses RLS)."""
+    global _service_client
+    if _service_client is None:
+        url = Config.SUPABASE_URL
+        key = Config.SUPABASE_SERVICE_KEY
+        logger.info("Connecting to Supabase with service role key")
+        _service_client = create_client(url, key)
+    return _service_client
 
 
 # --- User Operations ---
@@ -105,8 +117,9 @@ def save_generated_image(
 def upload_to_storage(
     bucket_path: str, file_bytes: bytes, content_type: str = "image/jpeg"
 ) -> str:
-    """Upload bytes to Supabase Storage. Returns the public URL."""
-    client = get_client()
+    """Upload bytes to Supabase Storage. Returns the public URL.
+    Uses service role key to bypass RLS policies."""
+    client = get_service_client()
     client.storage.from_("pichasafi").upload(
         path=bucket_path,
         file=file_bytes,
